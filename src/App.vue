@@ -13,7 +13,7 @@ onMounted(()=>{
 </script>
 
 <template>
-    <div>
+    <div class="main">
         <GenerationMenu />
     </div>
 </template>

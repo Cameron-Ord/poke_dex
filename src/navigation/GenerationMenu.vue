@@ -5,7 +5,10 @@ const store = poke_data()
 </script>
 
 <template>
-    <div>
-        <p class="gen_button" v-for="item in store.get_gen_list">{{ item.name }}</p>
+    <div class="child">
+        <h1 class="button" v-for="item in store.get_gen_list">{{ item.name }}</h1>
     </div>
 </template>
+
+<style scoped>
+</style>

@@ -1,20 +1,96 @@
+:root {
+  /* Palette Colors */
+  --rosewater: #f5e0dc;
+  --flamingo: #f2cdcd;
+  --pink: #f5c2e7;
+  --mauve: #cba6f7;
+  --red: #f38ba8;
+  --maroon: #eba0ac;
+  --peach: #fab387;
+  --yellow: #f9e2af;
+  --green: #a6e3a1;
+  --teal: #94e2d5;
+  --sky: #89dceb;
+  --sapphire: #74c7ec;
+  --blue: #89b4fa;
+  --lavender: #b4befe;
+
+  /* UI Text & Subtext */
+  --text: #cdd6f4;
+  --subtext-1: #bac2de;
+  --subtext-0: #a6adc8;
+
+  /* UI Overlays */
+  --overlay-2: #9399b2;
+  --overlay-1: #7f849c;
+  --overlay-0: #6c7086;
+
+  /* UI Surfaces */
+  --surface-2: #585b70;
+  --surface-1: #45475a;
+  --surface-0: #313244;
+
+  /* Base Layers */
+  --base: #1e1e2e;
+  --mantle: #181825;
+  --crust: #11111b;
+}
+
 body {
+margin: 0px;
+padding: 0px;
+background-color: var(--base);
+color: var(--text);
+}
+
+.main {
+  display:grid;
+  justify-items: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.parent {
+  display:grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.child {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  row-gap: 6px;
+  column-gap: 8px;
+}
+
+.button {
+  background-color: var(--mantle);
+  color: var(--sapphire);
+  border: solid var(--sapphire) 2px;
+  border-radius: 4px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+img {
 margin: 0px;
 padding: 0px;
 }
 
-img {
-
-}
-
 p{
-
+margin: 0px;
+padding: 0px;
 }
 
 h1 {
-
+margin: 0px;
+padding: 0px;
 }
 
 h2{
-
+margin: 0px;
+padding: 0px;
 }
