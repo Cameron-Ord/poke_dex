@@ -1,7 +1,19 @@
 <script setup lang="ts">
-import DisplayCards from './cards/DisplayCards.vue';
+import { onMounted } from 'vue';
+import { poke_data } from './store';
+
+import GenerationMenu from './navigation/GenerationMenu.vue';
+
+const store = poke_data()
+
+onMounted(()=>{
+    store.api_fetch_gens()
+})
+
 </script>
 
 <template>
-    <DisplayCards />
+    <div>
+        <GenerationMenu />
+    </div>
 </template>
