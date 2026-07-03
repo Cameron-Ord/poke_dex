@@ -1,17 +1,30 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
-import type { Entry, Generation_Paginator, Generation_Paginator_Body } from "./types";
+import { type Pokedex, type Dex_Entry, type Paginator_Entry, type Generation_Paginator, type Generation_Paginator_Body } from "./types";
 
 import axios from 'axios';
 
 export const poke_data = defineStore('poke_data', ()=> {
-    const api_has_error = ref<boolean>(false)
-
     const api_base_url: string = "https://pokeapi.co/api/v2/"
     const endpoint_gen: string = "generation"
+    const endpoint_pokemon: string = "pokemon"
+
+    const DEX_MAX_DISPLAY = 3
+    const DEX_BUFFER_MAX = 12
+    
+    const GET_DISP_MAX = computed(()=>DEX_MAX_DISPLAY)
+    const GET_DEX_BUFF_MAX = computed(()=>DEX_BUFFER_MAX)
+
+    const pokedex = ref<Pokedex>()
+    const get_pokedex = computed(()=>pokedex)
+
+    const api_has_error = ref<boolean>(false)
 
     const gen_api_pages = ref<Generation_Paginator[]>([])
     const get_gen_pages = computed(() => gen_api_pages.value)
+
+    // Sliding window buffer
+    const dex_entry_buffer = ref<Dex_Entry[]>()
 
     const gen_id_to_index = (given_id: number): number => {
         const generations: number = gen_api_pages.value.length
@@ -40,7 +53,7 @@ export const poke_data = defineStore('poke_data', ()=> {
         body: zeroed_gen_paginator_body()
     })
 
-    const gen_paginator_body_from = (_id: number, _region: Entry, _moves: Entry[], _species: Entry[], _types: Entry[], _versions: Entry[]): Generation_Paginator_Body => ({
+    const gen_paginator_body_from = (_id: number, _region: Paginator_Entry, _moves: Paginator_Entry[], _species: Paginator_Entry[], _types: Paginator_Entry[], _versions: Paginator_Entry[]): Generation_Paginator_Body => ({
         id: _id,
         region: _region,
         moves: _moves,
@@ -58,13 +71,13 @@ export const poke_data = defineStore('poke_data', ()=> {
         versions: [],
     })
 
-    const zeroed_entry = (): Entry => ({
+    const zeroed_entry = (): Paginator_Entry => ({
         name: "",
         url: ""
     })
 
     
-    const gen_paginator_set_heads = async (unresolved: Promise<null | Entry[]>): Promise<void> => {
+    const gen_paginator_set_heads = async (unresolved: Promise<null | Paginator_Entry[]>): Promise<void> => {
         const heads = await unresolved
         if(!heads) {
             console.error("Promise returned NULL!")
@@ -91,7 +104,6 @@ export const poke_data = defineStore('poke_data', ()=> {
             return
         }
 
-        console.log(body.id)
         const generation: number = gen_id_to_index(body.id)
         const generations: number = gen_api_pages.value.length
         if(generation < 0 || generation >= generations){
@@ -106,11 +118,11 @@ export const poke_data = defineStore('poke_data', ()=> {
             const resp = await axios.get(endpoint)
             
             const gen_id: number = resp.data["id"]
-            const region: Entry = resp.data["main_region"]
-            const moves: Entry[] = resp.data["moves"]
-            const species: Entry[] = resp.data["pokemon_species"]
-            const types: Entry[] = resp.data["types"]
-            const versions: Entry[] = resp.data["version_groups"]
+            const region: Paginator_Entry = resp.data["main_region"]
+            const moves: Paginator_Entry[] = resp.data["moves"]
+            const species: Paginator_Entry[] = resp.data["pokemon_species"]
+            const types: Paginator_Entry[] = resp.data["types"]
+            const versions: Paginator_Entry[] = resp.data["version_groups"]
 
             return gen_paginator_body_from(gen_id, region, moves, species, types, versions)
         } catch (error) {
@@ -122,7 +134,7 @@ export const poke_data = defineStore('poke_data', ()=> {
         return null
     }
 
-    const request_gen_paginator_head = async (): Promise<null | Entry[]> => {
+    const request_gen_paginator_head = async (): Promise<null | Paginator_Entry[]> => {
         const endpoint: string = api_base_url + endpoint_gen
         try {
             const resp = await axios.get(endpoint)

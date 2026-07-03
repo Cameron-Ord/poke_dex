@@ -20,11 +20,6 @@ onMounted(()=>{
 <template>
     <div class="main">
         <GenerationMenu />
-        <div v-if="store.get_gen_pages.length > 0"> 
-
-            <PokedexList />
-
-        </div>
         
     </div>
 </template>
