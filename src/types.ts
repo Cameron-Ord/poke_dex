@@ -3,7 +3,7 @@ export interface Entry {
     url: string
 }
 
-export interface Generation_Data {
+export interface Generation_Paginator_Body {
     id: number,
     region: Entry,
     moves: Entry[],
@@ -12,9 +12,9 @@ export interface Generation_Data {
     versions: Entry[]
 }
 
-export interface Generation_Entry {
-    api_pagination: Entry,
-    data: Generation_Data
+export interface Generation_Paginator {
+    head: Entry,
+    body: Generation_Paginator_Body
 }
 
 export interface Pokemon_Data {
