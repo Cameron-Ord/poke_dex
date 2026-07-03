@@ -5,6 +5,7 @@ export interface Entry {
 
 export interface Generation_Data {
     id: number,
+    region: Entry,
     moves: Entry[],
     species: Entry[],
     types: Entry[],
