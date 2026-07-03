@@ -7,7 +7,7 @@ import GenerationMenu from './navigation/GenerationMenu.vue';
 const store = poke_data()
 
 onMounted(()=>{
-    store.api_fetch_gens()
+    store.gen_fill_pagination(store.api_fetch_gen_pagination())
 })
 
 </script>

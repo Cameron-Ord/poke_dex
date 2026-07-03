@@ -4,8 +4,16 @@ export interface Entry {
 }
 
 export interface Generation_Data {
-    generation: Entry,
-    // ... potentially unitialized data goes here
+    id: number,
+    moves: Entry[],
+    species: Entry[],
+    types: Entry[],
+    versions: Entry[]
+}
+
+export interface Generation_Entry {
+    api_pagination: Entry,
+    data: Generation_Data
 }
 
 export interface Pokemon_Data {
