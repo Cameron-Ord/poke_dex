@@ -3,20 +3,6 @@ export interface Paginator_Entry {
     url: string
 }
 
-export interface Generation_Paginator_Body {
-    id: number,
-    region: Paginator_Entry,
-    moves: Paginator_Entry[],
-    species: Paginator_Entry[],
-    types: Paginator_Entry[],
-    versions: Paginator_Entry[]
-}
-
-export interface Generation_Paginator {
-    head: Paginator_Entry,
-    body: Generation_Paginator_Body
-}
-
 export interface Ability_Content {
     paginator: Paginator_Entry
     is_hidden: boolean,
@@ -48,13 +34,8 @@ export interface Species_Content {
 
 export interface Pokemon_Content{
     paginator: Paginator_Entry,
-}
 
-export interface Dex_Entry {
-    id: number,
-    name: string,
     sprite: string,
-
     abilities: Ability_Content
     types: Type_Content[],
     encounters: Encounter_Content[],
@@ -68,11 +49,16 @@ export interface Dex_Entry {
     is_default: boolean,
 }
 
+export interface Dex_Entry {
+    id: number,
+    name: string,
+    pokemon_details: Pokemon_Content,
+    species_details: Species_Content
+}
+
 export interface Pokedex {
-    generation_id: number
     position: number,
     dex_size: number,
-    name_list: string[],
     buffer: Dex_Entry[]
 }
 
