@@ -8,8 +8,6 @@ const cards = state.get_display_cards
 
 async function card_scroll(ev: WheelEvent) {
     const direction: number = ev.deltaY > 0 ? 1 : -1
-    console.log(direction)
-
     if(state.scroll_update_positions(direction)){
         await state.pokedex_buffer_assign(state.request_pokemon_consecutive())
         await state.display_cards_update()

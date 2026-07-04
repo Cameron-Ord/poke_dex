@@ -8,8 +8,8 @@ export const dex_state = defineStore('dex_state', ()=> {
     const api_base_url: string = "https://pokeapi.co/api/v2/pokemon"
     const api_has_error = ref<boolean>(false)
 
-    const DEX_BUFFER_MAX = 48
-    const DEX_SHIFT_AMOUNT = 24
+    const DEX_BUFFER_MAX = 128
+    const DEX_SHIFT_AMOUNT = 64
     const GET_DEX_BUFF_MAX = computed(()=>DEX_BUFFER_MAX)
 
     const pokedex = ref<Pokedex>(zeroed_dex())
@@ -82,7 +82,7 @@ export const dex_state = defineStore('dex_state', ()=> {
             pokedex.value.dex_position = dex_size - 1
             return buffer_set_position
         }
-        pokedex.value.dex_position = current_position
+        pokedex.value.dex_position = next_position
         return buffer_set_position
     }
 
