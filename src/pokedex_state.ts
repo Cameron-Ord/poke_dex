@@ -16,48 +16,95 @@ export const dex_state = defineStore('dex_state', ()=> {
     const get_pokedex = computed(()=>pokedex)
     const get_display_cards = computed(() =>pokedex.value.display_window)
 
+    function diff(base: number, second: number) {
+        return base - second
+    }
+    //Returns true if need to update cards with a call to API
+    function scroll_update_positions(direction: number) : boolean {
+        const { control_flow, buffer_position } = pokedex_traverse_query(direction)
+        switch(control_flow){
+            default:{
+                return false
+            }
 
-    function scroll_update(direction: number) {
-        switch(pokedex_traverse_query(direction)){
             case CONTROL_FLOW.DEX_SEEK_BACKWARD:{
-
-            } break
+                buffer_shift_position(pokedex_seek_backward()(buffer_position), DEX_SHIFT_AMOUNT)
+                return true
+            } 
 
             case CONTROL_FLOW.DEX_SEEK_FORWARD: {
-
-            }break
+                buffer_shift_position(pokedex_seek_forward()(buffer_position), -DEX_SHIFT_AMOUNT)
+                return true
+            }
 
             case CONTROL_FLOW.DEX_SEEK_UNCHANGED: {
-
+                buffer_set_position(buffer_position)
+                return false
             }
         }
     }
 
-    function buffer_update_position(){
-
+    function buffer_shift_position(position: number, shift_amount: number){
+        let shifted: number = position + shift_amount
+        const buflen = pokedex.value.buffer.length
+        if(shifted >= buflen){
+            pokedex.value.buffer_position = buflen - 1
+        } else if (shifted < 0){
+            pokedex.value.buffer_position = 0
+        } else {
+            pokedex.value.buffer_position = shifted
+        }
     }
 
-    function pokedex_seek_backward(){
-
+    function buffer_set_position(updated: number): number {
+        pokedex.value.buffer_position = updated
+        return updated
     }
 
-    function pokedex_seek_forward(){
+    function pokedex_seek_backward(): (direction: number) => number {
+        const current_position: number = pokedex.value.dex_position
+        const next_position: number = current_position - DEX_SHIFT_AMOUNT
+
+        if(next_position < 0){
+            pokedex.value.dex_position = 0
+            return buffer_set_position
+        }
+        pokedex.value.dex_position = next_position
+        return buffer_set_position
+    }
+
+    function pokedex_seek_forward(): (direction: number) => number {
         const dex_size: number = pokedex.value.dex_size
         const current_position: number = pokedex.value.dex_position
-        const next_position: number = pokedex.value.dex_position + DEX_SHIFT_AMOUNT
-        
+        const next_position: number = current_position + DEX_SHIFT_AMOUNT
+
+        if(next_position >= dex_size){
+            pokedex.value.dex_position = dex_size - 1
+            return buffer_set_position
+        }
+        pokedex.value.dex_position = current_position
+        return buffer_set_position
     }
 
-    function pokedex_traverse_query(direction: number): number {
-        const current = pokedex.value.buffer_position
-        const buflen = pokedex.value.buffer.length
+    function pokedex_traverse_query(direction: number): { control_flow: number, buffer_position: number } {
+        const current: number = pokedex.value.buffer_position
+        const buflen: number = pokedex.value.buffer.length
+
+        const dex_pos: number = pokedex.value.dex_position
+        const dex_len: number = pokedex.value.dex_size
 
         if(current + direction < 0){
-            return CONTROL_FLOW.DEX_SEEK_BACKWARD
+            if(dex_pos == 0) {
+                return { control_flow: CONTROL_FLOW.DEX_SEEK_UNCHANGED, buffer_position: 0}
+            }
+            return { control_flow: CONTROL_FLOW.DEX_SEEK_BACKWARD, buffer_position: 0}
         } else if (current + direction >= buflen){
-            return CONTROL_FLOW.DEX_SEEK_FORWARD
+            if(dex_pos >= dex_len){
+                return { control_flow: CONTROL_FLOW.DEX_SEEK_UNCHANGED, buffer_position: buflen - 1}
+            }
+            return { control_flow: CONTROL_FLOW.DEX_SEEK_FORWARD, buffer_position: buflen - 1}
         } else {
-            return CONTROL_FLOW.DEX_SEEK_UNCHANGED
+            return {control_flow: CONTROL_FLOW.DEX_SEEK_UNCHANGED, buffer_position: current + direction}
         }
     }
 
@@ -190,5 +237,5 @@ export const dex_state = defineStore('dex_state', ()=> {
         return 0
     }
 
-    return { request_pokemon_count, set_dex_size, request_pokemon_consecutive, pokedex_buffer_assign, display_cards_update, get_pokedex, get_display_cards, increment_buffer_position }
+    return { request_pokemon_count, set_dex_size, request_pokemon_consecutive, pokedex_buffer_assign, display_cards_update, get_pokedex, get_display_cards, scroll_update_positions }
 })
