@@ -20,10 +20,17 @@ export interface Display_Window {
 }
 
 export interface Pokedex {
-    position: number,
+    dex_position: number,
     dex_size: number,
     buffer: Dex_Entry[]
+    buffer_position: number,
     display_window: Display_Window
 }
 
+export const CONTROL_FLOW = {
+    DEX_SEEK_UNCHANGED: 1,
+    DEX_SEEK_BACKWARD: 2,
+    DEX_SEEK_FORWARD: 3
+} as const
 
+export type CONTROL_FLOW = typeof CONTROL_FLOW[keyof typeof CONTROL_FLOW];
