@@ -17,6 +17,8 @@ export const dex_state = defineStore('dex_state', ()=> {
     const get_display_cards = computed(() =>pokedex.value.display_window)
 
     //Returns true if need to update cards with a call to API
+    //I need to implement some tracking if the wheel is being spun and only request once it has stopped
+    //non negotiable as it will prevent needless api calls and make things more responsive feeling
     function scroll_update_positions(direction: number) : boolean {
         const { control_flow, buffer_position } = pokedex_traverse_query(direction)
         switch(control_flow){
