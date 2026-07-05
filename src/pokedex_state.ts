@@ -8,8 +8,8 @@ export const dex_state = defineStore('dex_state', ()=> {
     const api_base_url: string = "https://pokeapi.co/api/v2/pokemon"
     const api_has_error = ref<boolean>(false)
 
-    const DEX_BUFFER_MAX = 128
-    const DEX_SHIFT_AMOUNT = 64
+    const DEX_BUFFER_MAX = 8
+    const DEX_SHIFT_AMOUNT = 4
     const GET_DEX_BUFF_MAX = computed(()=>DEX_BUFFER_MAX)
 
     const pokedex = ref<Pokedex>(zeroed_dex())
@@ -61,7 +61,7 @@ export const dex_state = defineStore('dex_state', ()=> {
         return updated
     }
 
-    function pokedex_seek_backward(): (direction: number) => number {
+    function pokedex_seek_backward(): (updated: number) => number {
         const current_position: number = pokedex.value.dex_position
         const next_position: number = current_position - DEX_SHIFT_AMOUNT
 
@@ -93,12 +93,12 @@ export const dex_state = defineStore('dex_state', ()=> {
         const dex_pos: number = pokedex.value.dex_position
         const dex_len: number = pokedex.value.dex_size
 
-        if(current + direction < 0){
+        if(current + direction <= 0){
             if(dex_pos == 0) {
                 return { control_flow: CONTROL_FLOW.DEX_SEEK_UNCHANGED, buffer_position: 0}
             }
             return { control_flow: CONTROL_FLOW.DEX_SEEK_BACKWARD, buffer_position: 0}
-        } else if (current + direction >= buflen){
+        } else if (current + direction >= buflen - 1){
             if(dex_pos >= dex_len){
                 return { control_flow: CONTROL_FLOW.DEX_SEEK_UNCHANGED, buffer_position: buflen - 1}
             }
@@ -124,7 +124,8 @@ export const dex_state = defineStore('dex_state', ()=> {
             cry: "",
             height: 0,
             weight: 0,
-            base_exp: 0
+            base_exp: 0,
+            empty: true
         }
     }
 
@@ -144,7 +145,24 @@ export const dex_state = defineStore('dex_state', ()=> {
         return
     }
 
-    async function display_cards_update(): Promise<void> {
+    async function display_cards_check_empty(unresolved: Promise<Display_Window>) {
+        const display_window: Display_Window = await unresolved
+        const dex_entries: Dex_Entry[] = [ 
+            display_window.prev, 
+            display_window.current, 
+            display_window.next
+        ]
+
+        for(let ent = 0; ent < dex_entries.length; ent++){
+            if(dex_entries[ent].name.length != 0){
+                continue
+            } else {
+                dex_entries[ent].empty = true
+            }
+        }
+    }
+
+    async function display_cards_update(): Promise<Display_Window> {
         const pokemon_buffer = pokedex.value.buffer
         const buflen: number = pokemon_buffer.length
         const current: number = pokedex.value.buffer_position
@@ -167,6 +185,7 @@ export const dex_state = defineStore('dex_state', ()=> {
             display_window.next = zeroed_entry()
         }
 
+        return display_window
     }
 
     async function pokedex_buffer_assign(unresolved: Promise<Dex_Entry[]>): Promise<void> {
@@ -210,11 +229,12 @@ export const dex_state = defineStore('dex_state', ()=> {
             return {
                 id: data['id'] || 0,
                 name: data['name'] || "",
-                sprite: data['sprites']['front_default'] || "",
+                sprite: data['sprites']['other']['official-artwork']['front_default'] || "",
                 cry: data['cries']['legacy'] || "",
                 height: data['height'] || 0,
                 weight: data['weight'] || 0,
-                base_exp: data['base_experience'] || 0
+                base_exp: data['base_experience'] || 0,
+                empty: false
             }
         } catch (error) {
             console.log(error)
@@ -237,5 +257,5 @@ export const dex_state = defineStore('dex_state', ()=> {
         return 0
     }
 
-    return { request_pokemon_count, set_dex_size, request_pokemon_consecutive, pokedex_buffer_assign, display_cards_update, get_pokedex, get_display_cards, scroll_update_positions }
+    return { request_pokemon_count, set_dex_size, request_pokemon_consecutive, pokedex_buffer_assign, display_cards_update, get_pokedex, get_display_cards, scroll_update_positions, display_cards_check_empty}
 })

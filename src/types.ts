@@ -11,6 +11,7 @@ export interface Dex_Entry {
     height: number,
     weight: number,
     base_exp: number,
+    empty: boolean,
 }
 
 export interface Display_Window {

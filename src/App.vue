@@ -23,7 +23,7 @@ onMounted(()=>{
 </script>
 
 <template>
-    <div class="main"">
+    <div class="main">
         <PokedexList />
     </div>
 </template>
