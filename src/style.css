@@ -73,14 +73,44 @@ div{
   opacity: 1;
 }
 
+.transition_none {
+  transition: none;
+}
+
+.transition_linear {
+  transition-timing-function: linear;
+}
+
+.transition_delay_25ms {
+  transition-delay: 0.25s;
+}
+
+.transition_opacity {
+  transition-property: opacity;
+}
+
+.transition_75ms{
+  transition-duration: 0.75s;
+}
+
+.transition_50ms{
+  transition-duration: 0.5s ;
+}
+
+.transition_25ms{
+  transition-duration: 0.25s;
+}
+
+.box_blur{
+  filter: blur(2px);
+}
+
 .unloaded {
   opacity: 0;
-  transition: opacity 0.1s ease-in;
 }
 
 .loaded {
   opacity: 1;
-  transition: opacity 0.75s ease-in;
 }
 
 .img_width_max_176px{

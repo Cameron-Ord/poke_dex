@@ -53,15 +53,15 @@ function on_load(key: load_key) {
 
 <template>
     <div class="parent spacer" @wheel.prevent="card_scroll($event)">
-        <div class="container_width_max spacer parent poke_container text_align_centered " v-if="!cards.prev.empty">
-            <img :class="{ loaded: img_loaded.prev }"  @load="on_load('prev')" :src="cards.prev.sprite" class="padding_row_4px unloaded img_width_max_176px sprite_box green_border_2px rounded_border_5px" alt="">
+        <div :class="{ loaded: img_loaded.prev }" class="box_blur transition_opacity transition_linear transition_25ms unloaded spacer parent poke_container text_align_centered sprite_box green_border_2px rounded_border_5px" v-if="!cards.prev.empty">
+            <img :class="{ loaded: img_loaded.prev }"  @load="on_load('prev')" :src="cards.prev.sprite" class="transition_delay_25ms transition_opacity transition_linear transition_50ms unloaded padding_row_4px img_width_max_176px" alt="">
         </div>
-        <div class="padding_row_8px container_width_max spacer parent poke_container text_align_centered current_sprite_box sky_border_2px rounded_border_5px" v-if="!cards.current.empty">
-            <img :class="{ loaded: img_loaded.current }" @load="on_load('current')" :src="cards.current.sprite" class="generic_pad_4px unloaded img_width_max_256px" alt="">
-            <h2 class="pokemon_name_badge">{{ cards.current.name }}</h2>
+        <div :class="{ loaded: img_loaded.current }" class="transition_opacity transition_linear  transition_25ms unloaded padding_row_8px spacer parent poke_container text_align_centered current_sprite_box sky_border_2px rounded_border_5px" v-if="!cards.current.empty">
+            <img :class="{ loaded: img_loaded.current }" @load="on_load('current')" :src="cards.current.sprite" class="transition_delay_25ms transition_opacity transition_linear transition_50ms unloaded generic_pad_4px img_width_max_256px" alt="">
+            <h2 :class="{ loaded: img_loaded.current }" class="transition_delay_25ms transition_opacity transition_linear transition_75ms unloaded pokemon_name_badge">{{ cards.current.name }}</h2>
         </div>
-        <div class="container_width_max spacer parent poke_container text_align_centered" v-if="!cards.next.empty">
-            <img :class="{ loaded: img_loaded.next }" @load="on_load('next')" :src="cards.next.sprite" class="padding_row_4px unloaded img_width_max_176px sprite_box green_border_2px rounded_border_5px" alt="">
+        <div :class="{ loaded: img_loaded.next }" class="box_blur transition_opacity transition_linear transition_25ms unloaded spacer parent poke_container text_align_centered sprite_box green_border_2px rounded_border_5px" v-if="!cards.next.empty">
+            <img :class="{ loaded: img_loaded.next }" @load="on_load('next')" :src="cards.next.sprite" class="transition_delay_25ms transition_opacity transition_linear transition_50ms unloaded padding_row_4px img_width_max_176px" alt="">
         </div>
     </div>
 </template>
