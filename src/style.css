@@ -141,6 +141,10 @@ div{
   border-radius: 5px;
 }
 
+.white_border_2px {
+  border: solid var(--text) 2px;
+}
+
 .green_border_2px {
   border: solid var(--green) 2px;
 }
@@ -172,23 +176,57 @@ div{
   padding: 8px;
 }
 
-.text_align_centered {
-  text-align: center;
-}
-
 .spacer {
   row-gap: 10px;
   column-gap: 10px;
 }
 
-.parent {
-  display:grid;
-  justify-items: center;
-  align-items: center;
+.width_80{
+  width: 70%;
 }
 
-.poke_container {
+.width_70{
+  width: 70%;
+}
+
+.width_50 {
+  width: 50%;
+}
+
+.width_100{
+  width: 100%;
+}
+
+.grid_flow_col {
+  grid-auto-flow: column;
+}
+
+.grid_flow_row {
   grid-auto-flow: row;
+}
+
+.grid_cols_start_third {
+  grid-template-columns: 0.5fr 1fr;
+}
+
+.start_grid {
+  display: grid;
+  align-items: center;
+  justify-items: start;
+  text-align: start;
+}
+
+.center_grid {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.container {
+  background-color: var(--surface-1);
+  width: 90%;
+  height: 90%;
 }
 
 .sprite_box {
@@ -217,14 +255,17 @@ padding: 0px;
 p{
 margin: 0px;
 padding: 0px;
+font-size: clamp(0.5rem, 1.5vw + 0.5rem, 2rem);
 }
 
 h1 {
 margin: 0px;
 padding: 0px;
+font-size: clamp(0.5rem, 1.5vw + 0.5rem, 2rem);
 }
 
 h2{
 margin: 0px;
 padding: 0px;
+font-size: clamp(0.5rem, 1.5vw + 0.5rem, 2rem);
 }

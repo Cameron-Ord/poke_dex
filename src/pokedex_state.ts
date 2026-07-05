@@ -8,7 +8,7 @@ export const dex_state = defineStore('dex_state', ()=> {
     const api_base_url: string = "https://pokeapi.co/api/v2/pokemon"
     const api_has_error = ref<boolean>(false)
 
-    const DISP_BUFFER_MAX = 6
+    const DISP_BUFFER_MAX = 32
 
     const pokedex = ref<Pokedex>(zeroed_dex())
     const get_pokedex = computed(()=>pokedex)

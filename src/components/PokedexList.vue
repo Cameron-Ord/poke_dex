@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { dex_state } from '../pokedex_state';
-import { onMounted, ref, watch } from 'vue';
-import { WHEEL_STATES, type Dex_Entry } from '../types';
+import { ref, watch } from 'vue';
 
 const state = dex_state()
 const cards = state.get_display_cards
@@ -12,9 +11,6 @@ const img_loaded = ref<{prev: boolean, current: boolean, next: boolean}>({
     current: false,
     next: false
 })
-
-let scrolling: WHEEL_STATES = WHEEL_STATES.WHEEL_RESTING
-let timeout_id: number | undefined = undefined
 
 watch(()=>cards.prev, ()=>{
     img_loaded.value.prev = false
@@ -38,16 +34,6 @@ async function on_wheel(ev: WheelEvent) {
 }
 
 </script>
-
-<style scoped>
-.fade-enter-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from{
-  opacity: 0;
-}
-</style>
 
 <template>
     <div class="parent spacer" @wheel.prevent="on_wheel($event)">
