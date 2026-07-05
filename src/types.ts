@@ -28,10 +28,9 @@ export interface Pokedex {
     display_window: Display_Window
 }
 
-export const CONTROL_FLOW = {
-    DEX_SEEK_UNCHANGED: 1,
-    DEX_SEEK_BACKWARD: 2,
-    DEX_SEEK_FORWARD: 3
+export const WHEEL_STATES = {
+    WHEEL_SEEKING: 1,
+    WHEEL_RESTING: 2
 } as const
 
-export type CONTROL_FLOW = typeof CONTROL_FLOW[keyof typeof CONTROL_FLOW];
+export type WHEEL_STATES = typeof WHEEL_STATES[keyof typeof WHEEL_STATES];
