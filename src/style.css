@@ -43,10 +43,15 @@ background-color: var(--base);
 color: var(--text);
 }
 
+div{
+  margin: 0px;
+  padding: 0px;
+}
 
 .main {
-  display:grid;
-  grid-auto-flow: column;
+  display: grid;
+  width: 100%;
+  justify-self: center;
   justify-items: center;
   align-items: center;
   min-height: 100vh;
@@ -75,32 +80,23 @@ color: var(--text);
 
 .loaded {
   opacity: 1;
-  transition: opacity 0.5s ease-in;
-}
-
-.img_sizing_auto {
-  width: min-content;
-  height:min-content;
-}
-
-.img_width_min_32px{
-  min-width: 32px;
-  height: auto;
-}
-
-.img_width_max_128px{
-  max-width: 128px;
-  height: auto;
+  transition: opacity 0.75s ease-in;
 }
 
 .img_width_max_176px{
+  width: 95%;
   max-width: 176px;
   height: auto;
 }
 
-.img_width_max_192px{
-  max-width: 192px;
+.img_width_max_256px{
+  width: 95%;
+  max-width: 256px;
   height: auto;
+}
+
+.container_height_90 {
+  height: 90%;
 }
 
 .container_width_90 {
@@ -129,6 +125,17 @@ color: var(--text);
 
 .sky_border_2px {
   border: solid var(--sky) 2px;
+}
+
+
+.padding_row_4px {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.padding_row_8px {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .generic_pad_8px {
@@ -170,17 +177,6 @@ color: var(--text);
   padding-right: 8px;
   padding-top: 1px;
   padding-bottom: 1px;
-}
-
-.button {
-  background-color: var(--mantle);
-  color: var(--sapphire);
-  border: solid var(--sapphire) 2px;
-  border-radius: 4px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 8px;
-  padding-right: 8px;
 }
 
 img {

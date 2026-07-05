@@ -16,9 +16,6 @@ export const dex_state = defineStore('dex_state', ()=> {
     const get_pokedex = computed(()=>pokedex)
     const get_display_cards = computed(() =>pokedex.value.display_window)
 
-    function diff(base: number, second: number) {
-        return base - second
-    }
     //Returns true if need to update cards with a call to API
     function scroll_update_positions(direction: number) : boolean {
         const { control_flow, buffer_position } = pokedex_traverse_query(direction)

@@ -2,7 +2,7 @@
 import { onMounted, onBeforeMount } from 'vue';
 import { dex_state } from './pokedex_state.ts';
 
-import PokedexList from './cards/PokedexList.vue';
+import PokedexList from './components/PokedexList.vue';
 
 const state = dex_state()
 

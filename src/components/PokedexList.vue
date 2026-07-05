@@ -53,15 +53,15 @@ function on_load(key: load_key) {
 
 <template>
     <div class="parent spacer" @wheel.prevent="card_scroll($event)">
-        <div class="spacer parent poke_container text_align_centered" v-if="!cards.prev.empty">
-            <img :class="{ loaded: img_loaded.prev }"  @load="on_load('prev')" :src="cards.prev.sprite" class="unloaded img_width_min_32px img_width_max_128px sprite_box generic_pad_8px green_border_2px rounded_border_5px" alt="">
+        <div class="container_width_max spacer parent poke_container text_align_centered " v-if="!cards.prev.empty">
+            <img :class="{ loaded: img_loaded.prev }"  @load="on_load('prev')" :src="cards.prev.sprite" class="padding_row_4px unloaded img_width_max_176px sprite_box green_border_2px rounded_border_5px" alt="">
         </div>
-        <div class="spacer parent poke_container text_align_centered current_sprite_box generic_pad_8px sky_border_2px rounded_border_5px" v-if="!cards.current.empty">
-            <img :class="{ loaded: img_loaded.current }" @load="on_load('current')" :src="cards.current.sprite" class="unloaded img_width_min_32px img_width_max_192px" alt="">
+        <div class="padding_row_8px container_width_max spacer parent poke_container text_align_centered current_sprite_box sky_border_2px rounded_border_5px" v-if="!cards.current.empty">
+            <img :class="{ loaded: img_loaded.current }" @load="on_load('current')" :src="cards.current.sprite" class="generic_pad_4px unloaded img_width_max_256px" alt="">
             <h2 class="pokemon_name_badge">{{ cards.current.name }}</h2>
         </div>
-        <div class="spacer parent poke_container text_align_centered" v-if="!cards.next.empty">
-            <img :class="{ loaded: img_loaded.next }" @load="on_load('next')" :src="cards.next.sprite" class="unloaded img_width_min_32px img_width_max_128px sprite_box generic_pad_8px green_border_2px rounded_border_5px" alt="">
+        <div class="container_width_max spacer parent poke_container text_align_centered" v-if="!cards.next.empty">
+            <img :class="{ loaded: img_loaded.next }" @load="on_load('next')" :src="cards.next.sprite" class="padding_row_4px unloaded img_width_max_176px sprite_box green_border_2px rounded_border_5px" alt="">
         </div>
     </div>
 </template>
