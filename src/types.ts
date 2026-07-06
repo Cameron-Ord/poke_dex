@@ -3,36 +3,11 @@ export interface Page_Entry {
     url: string
 }
 
-export interface Stat_Entry {
-    base_stat: number,
-    stat: string
-}
-
-export interface Dex_Entry {
-    id: number,
-    name: string,
-    sprite: string,
-    cry: string,
-    height: number,
-    weight: number,
-    base_exp: number,
-    empty: boolean,
-    types: string[],
-    stats: Stat_Entry[]
-}
-
-export interface Display_Window {
-    prev: Dex_Entry,
-    current: Dex_Entry,
-    next: Dex_Entry
-}
-
-export interface Pokedex {
-    dex_position: number,
-    dex_size: number,
-    buffer: Dex_Entry[]
-    buffer_position: number,
-    display_window: Display_Window
+export interface Destructured {
+    count: number,
+    next: null | string,
+    previous: null | string,
+    results: Page_Entry[]
 }
 
 export const WHEEL_STATES = {
