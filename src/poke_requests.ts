@@ -24,14 +24,16 @@ export const dex_requests = defineStore('dex_requests', ()=> {
         [ keys.type_key, new Map<string, string>() ],
         [ keys.stat_key, new Map<string, string>() ],
         [ keys.ability_key, new Map<string, string>() ],
+        [ keys.pokemon_key, new Map<string, string>() ],
     ])
 
     async function get_page_count(key: string): Promise<number> {
         const endpoint: string | undefined = api_endpoints.get(key)
         if(!endpoint){
+            console.error("bad key")
             return 0
         }
-        const data: Destructured | null = await request(key, 1, 0)
+        const data: Destructured | null = await request(endpoint, 1, 0)
         if(!data){
             return 0
         }
@@ -54,9 +56,10 @@ export const dex_requests = defineStore('dex_requests', ()=> {
         }
     }
 
-    async function request_pages(key: string): Promise<void> {
+    async function request_pages(key: string, req_limit: number, req_offset: number): Promise<void> {
         const endpoint: string | undefined = api_endpoints.get(key)
         if(!endpoint){
+            console.error("bad key")
             return
         }
 
@@ -67,6 +70,7 @@ export const dex_requests = defineStore('dex_requests', ()=> {
 
         let map: Map<string, string> | undefined = api_pages.get(key)
         if(!map){
+            console.error("bad key")
             return
         }
 
@@ -77,6 +81,6 @@ export const dex_requests = defineStore('dex_requests', ()=> {
     }
 
     
-    return { keys }
+    return { keys, request_pages, get_page_count }
 
 })

@@ -5,6 +5,8 @@ import { dex_requests } from './poke_requests.ts';
 const state = dex_requests()
 
 onMounted(async ()=>{
+    const pokemon_count: number = await state.get_page_count(state.keys.pokemon_key)
+    state.request_pages(state.keys.pokemon_key, pokemon_count, 0)
 })
 
 </script>
