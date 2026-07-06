@@ -18,7 +18,7 @@ function on_load() {
 
 </script>
 <template>
-    <div :class="{ loaded: img_loaded }" class="box_blur transition_opacity transition_linear transition_25ms unloaded spacer parent sprite_box green_border_2px rounded_border_5px width_80" v-if="!props.card.empty">
-        <img :class="{ loaded: img_loaded }" @load="on_load()" :src="props.card.sprite" class=" transition_delay_25ms transition_opacity transition_linear transition_50ms unloaded padding_row_4px img_width_max_176px width_90" alt="">
+    <div :class="{ loaded: img_loaded }" class="box_blur transition_opacity transition_linear transition_25ms unloaded spacer parent sprite_box green_border_2px rounded_border_5px width_80 img_width_max_176px" v-if="!props.card.empty">
+        <img :class="{ loaded: img_loaded }" @load="on_load()" :src="props.card.sprite" class=" transition_delay_25ms transition_opacity transition_linear transition_50ms unloaded padding_row_4px width_90" alt="">
     </div>
 </template>

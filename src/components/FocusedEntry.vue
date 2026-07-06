@@ -22,8 +22,8 @@ onMounted(async ()=>{
 
 </script>
 <template>
-    <div :class="{ loaded: img_loaded }" class="transition_opacity transition_linear transition_25ms unloaded padding_row_8px spacer center_grid current_sprite_box sky_border_2px rounded_border_5px width_100" v-if="!props.card.empty">
-        <img :class="{ loaded: img_loaded }" @load="on_load()" :src="props.card.sprite" class="transition_delay_25ms transition_opacity transition_linear transition_50ms unloaded generic_pad_4px img_width_max_256px width_90" alt="">
+    <div :class="{ loaded: img_loaded }" class="transition_opacity transition_linear transition_25ms unloaded padding_row_8px spacer center_grid current_sprite_box sky_border_2px rounded_border_5px width_100 img_width_max_256px" v-if="!props.card.empty">
+        <img :class="{ loaded: img_loaded }" @load="on_load()" :src="props.card.sprite" class="transition_delay_25ms transition_opacity transition_linear transition_50ms unloaded generic_pad_4px width_90" alt="">
         <p :class="{ loaded: img_loaded }" class="transition_delay_25ms transition_opacity transition_linear transition_75ms unloaded pokemon_name_badge">{{ props.card.name }}</p>
     </div>
 </template>
