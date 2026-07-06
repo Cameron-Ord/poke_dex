@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { onMounted, onBeforeMount } from 'vue';
 import { dex_requests } from './poke_requests.ts';
+import type { Pokemon_Information_Generic } from './types.ts';
 
 const state = dex_requests()
 
 onMounted(async ()=>{
     const pokemon_count: number = await state.get_page_count(state.keys.pokemon_key)
-    state.request_pages(state.keys.pokemon_key, pokemon_count, 0)
+    await state.request_pages(state.keys.pokemon_key, pokemon_count, 0)
 })
 
 </script>
