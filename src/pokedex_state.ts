@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
-import { type Pokedex, type Dex_Entry, type Display_Window } from "./types";
+import { type Pokedex, type Dex_Entry, type Display_Window, type Stat_Entry } from "./types";
 
 import axios from 'axios';
 
@@ -87,7 +87,9 @@ export const dex_state = defineStore('dex_state', ()=> {
             height: 0,
             weight: 0,
             base_exp: 0,
-            empty: true
+            empty: true,
+            types: [],
+            stats: []
         }
     }
 
@@ -184,6 +186,22 @@ export const dex_state = defineStore('dex_state', ()=> {
         return tmp
     }
 
+    function stat_data_transform(stats: [{base_stat: number, effort: number, stat:{name: string, url: string}}]): Stat_Entry[] {
+        let transformed: Stat_Entry[] = []
+        for(let i = 0; i < stats.length; i++){
+            transformed.push({base_stat: stats[i].base_stat, stat: stats[i].stat.name})
+        }
+        return transformed
+    }
+
+    function type_data_transform(types: [{slot: number, type: {name: string, url: string}}]): string[] {
+        let transformed: string[] = []
+        for(let i = 0; i < types.length; i++){
+            transformed.push(types[i].type.name)
+        }
+        return transformed
+    }
+
     async function request_pokemon(endpoint: string): Promise<Dex_Entry>  {
         try {
             const resp = await axios.get(endpoint)
@@ -192,11 +210,13 @@ export const dex_state = defineStore('dex_state', ()=> {
                 id: data['id'] || 0,
                 name: data['name'] || "",
                 sprite: data['sprites']['other']['official-artwork']['front_default'] || "",
-                cry: data['cries']['legacy'] || "",
+                cry: data['cries']['latest'] || "",
                 height: data['height'] || 0,
                 weight: data['weight'] || 0,
                 base_exp: data['base_experience'] || 0,
-                empty: false
+                empty: false,
+                types: type_data_transform(data['types']),
+                stats: stat_data_transform(data['stats']),
             }
         } catch (error) {
             console.log(error)

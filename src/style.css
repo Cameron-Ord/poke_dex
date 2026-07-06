@@ -50,27 +50,10 @@ div{
 
 .main {
   display: grid;
-  width: 100%;
   justify-self: center;
   justify-items: center;
   align-items: center;
   min-height: 100vh;
-}
-
-.img_wrapper {
-  position: relative;
-  width: auto;
-  height: auto;
-}
-
-.placeholder{
-  position:absolute;
-  left: 0;
-  top: 0;
-}
-
-.placeholder {
-  opacity: 1;
 }
 
 .transition_none {
@@ -114,27 +97,13 @@ div{
 }
 
 .img_width_max_176px{
-  width: 95%;
   max-width: 176px;
   height: auto;
 }
 
 .img_width_max_256px{
-  width: 95%;
   max-width: 256px;
   height: auto;
-}
-
-.container_height_90 {
-  height: 90%;
-}
-
-.container_width_90 {
-  width: 90%;
-}
-
-.container_width_max {
-  width: 100%;
 }
 
 .rounded_border_5px {
@@ -185,6 +154,14 @@ div{
   width: 70%;
 }
 
+.height_90 {
+  height: 90%;
+}
+
+.width_90 {
+  width: 90%;
+}
+
 .width_70{
   width: 70%;
 }
@@ -206,7 +183,7 @@ div{
 }
 
 .grid_cols_start_third {
-  grid-template-columns: 0.5fr 1fr;
+  grid-template-columns: auto 1fr;
 }
 
 .start_grid {
@@ -223,10 +200,8 @@ div{
   text-align: center;
 }
 
-.container {
+.container_bg {
   background-color: var(--surface-1);
-  width: 90%;
-  height: 90%;
 }
 
 .sprite_box {

@@ -1,6 +1,11 @@
-export interface Paginator_Entry {
+export interface Page_Entry {
     name: string,
     url: string
+}
+
+export interface Stat_Entry {
+    base_stat: number,
+    stat: string
 }
 
 export interface Dex_Entry {
@@ -12,6 +17,8 @@ export interface Dex_Entry {
     weight: number,
     base_exp: number,
     empty: boolean,
+    types: string[],
+    stats: Stat_Entry[]
 }
 
 export interface Display_Window {
