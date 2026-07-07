@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
-import type { Pokemon_Information_Generic } from '../types';
-import { dex_requests } from '../poke_requests';
+import { onMounted, watch, ref} from 'vue';
 import { dex_state } from '../pokedex_state';
+import { dex_requests } from '../poke_requests.ts';
+import type { Pokemon_Information_Generic } from '../types';
 
-const state = dex_state()
 const reqs = dex_requests()
+const state = dex_state()
+
 const poke_info = ref<Pokemon_Information_Generic | undefined>(undefined)
 
 watch(()=>state.get_index.value, async ()=>{
@@ -18,12 +19,8 @@ onMounted(async ()=>{
 })
 
 </script>
-
 <template>
     <div class="spacer start_grid rounded_border_5px" v-if="poke_info">
-        <div class="spacer start_grid rounded_border_5px grid_flow_col" v-for="stat in poke_info.stats">
-            <p class="text_padding rounded_border_5px yellow">{{ stat.name }}</p>
-            <p class="text_padding border_1px rounded_border_5px green">{{ stat.value }}</p>
-        </div>
+        <h2 class="yellow header_padding surface_dark rounded_border_5px">{{ poke_info.name }}</h2>
     </div>
 </template>

@@ -115,7 +115,7 @@ export const dex_requests = defineStore('dex_requests', ()=> {
     }
 
     function held_items_data_transform(held_items_list: Held_Item_Object[]): string[] {
-        let held_items: string[] = []
+        let held_items: string[] = Array<string>(0)
         for(let i = 0; i < held_items_list.length; i++){
             held_items.push(held_items_list[i].item.name)
         }
@@ -150,7 +150,6 @@ export const dex_requests = defineStore('dex_requests', ()=> {
         return tmp
     }
 
-    
     function pokemon_info_map_insert(pokemon_info: Pokemon_Information_Generic | null): Pokemon_Information_Generic | null {
         if(!pokemon_info){
             return null

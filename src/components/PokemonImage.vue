@@ -22,11 +22,6 @@ function on_load(){
     img_loaded.value = true
 }
 
-async function scroll_update(ev: WheelEvent) {
-    const direction: number = ev.deltaY > 0 ? 1 : -1
-    state.dex_increment(direction, reqs.pokemon_count)
-}
-
 function play_cry(){
     if(poke_info.value){
         const audio = new Audio(poke_info.value.cries.latest)
@@ -50,11 +45,10 @@ onMounted(async ()=>{
 
 </script>
 <template>
-    <div @wheel.prevent="scroll_update($event)" " class="center_grid spacer generic_pad_8px rounded_border_5px" v-if="poke_info">
-        <h2 :class="{ loaded: img_loaded }" class="yellow rounded_border_5px text_padding"> {{ poke_info.name }}</h2>
+    <div class="center_grid spacer generic_pad_8px rounded_border_5px" v-if="poke_info">
         <img :class="{ loaded: img_loaded }" @load="on_load()" class="unloaded transition_all transition_linear transition_25ms width_100 width_max_256px generic_pad_8px" :src="poke_info.official_artwork_urls[current_artwork]" alt="" @mouseenter="display_shiny()" @mouseleave="default_sprite()">
         <svg @click="play_cry()"
-        class="width_max_64px width_100 fill_color generic_pad_8px"
+        class="width_max_48px surface_dark rounded_border_5px width_100 fill_color generic_pad_8px"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

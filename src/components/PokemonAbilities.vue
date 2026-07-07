@@ -18,12 +18,8 @@ onMounted(async ()=>{
 })
 
 </script>
-
 <template>
-    <div class="spacer start_grid rounded_border_5px" v-if="poke_info">
-        <div class="spacer start_grid rounded_border_5px grid_flow_col" v-for="stat in poke_info.stats">
-            <p class="text_padding rounded_border_5px yellow">{{ stat.name }}</p>
-            <p class="text_padding border_1px rounded_border_5px green">{{ stat.value }}</p>
-        </div>
+    <div class="start_grid spacer rounded_border_5px">
+        <p class="text_padding green border_1px rounded_border_5px" v-if="poke_info" v-for="ability in poke_info.abilities"> {{ ability.name }}</p>
     </div>
 </template>

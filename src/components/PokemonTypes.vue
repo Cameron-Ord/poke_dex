@@ -20,7 +20,7 @@ onMounted(async ()=>{
 </script>
 
 <template>
-    <div class="start_grid grid_flow_col spacer generic_pad_8px rounded_border_5px" v-if="poke_info">
-        <p class="text_padding rounded_border_5px green" v-for="type in poke_info.type">{{ type.name }}</p>
+    <div class="spacer grid_flow_col start_grid rounded_border_5px yellow_border_2px" v-if="poke_info">
+        <h2 class="green header_padding border_1px rounded_border_5px" v-for="type in poke_info.type">{{ type.name }}</h2>
     </div>
 </template>
