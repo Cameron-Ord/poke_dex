@@ -1,7 +1,4 @@
-export interface Pokemon_Cry {
-    name: string
-    url: string
-}
+
 
 export interface Pokemon_Stat {
     name: string
@@ -20,8 +17,13 @@ export interface Pokemon_Ability {
 }
 
 export interface Pokemon_Artwork {
-    normal: string
-    shiny: string
+    front_default: string
+    front_shiny: string
+}
+
+export interface Pokemon_Cry {
+    latest: string
+    legacy: string
 }
 
 // Contains any information that can be acquired from the specified pokemon 
@@ -29,7 +31,7 @@ export interface Pokemon_Artwork {
 export interface Pokemon_Information_Generic {
     name: string
     base_experience: number
-    cries: Pokemon_Cry[]
+    cries: Pokemon_Cry
     height: number
     weight: number
     held_items: string[]

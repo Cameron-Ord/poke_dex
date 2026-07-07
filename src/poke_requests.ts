@@ -110,12 +110,8 @@ export const dex_requests = defineStore('dex_requests', ()=> {
         return tmp
     }
 
-    function cries_data_transform(cries: Cry_Urls): Pokemon_Cry[]{
-        let tmp: Pokemon_Cry[] = []
-        for(const [name, url] of Object.entries(cries)){
-            tmp.push({name, url})
-        }
-        return tmp
+    function cries_data_transform(cries: Cry_Urls): Pokemon_Cry{
+        return cries
     }
 
     function held_items_data_transform(held_items_list: Held_Item_Object[]): string[] {
@@ -127,10 +123,7 @@ export const dex_requests = defineStore('dex_requests', ()=> {
     }
 
     function artwork_data_transform(artwork: Artwork_Urls): Pokemon_Artwork {
-        let tmp: Pokemon_Artwork = {normal : "", shiny: ""}
-        tmp.normal = artwork.front_default
-        tmp.shiny = artwork.front_shiny
-        return tmp
+        return artwork
     }
 
     function ability_data_transform(abilities_list: Ability_Object[]) {

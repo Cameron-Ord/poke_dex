@@ -134,9 +134,18 @@ div{
   filter:blur(3px)
 }
 
+.fill_color {
+  color: var(--yellow);
+}
+
 .loaded {
   opacity: 1;
   filter: none
+}
+
+.width_max_64px {
+  max-width: 96px;
+  height:auto;
 }
 
 .width_max_176px{
