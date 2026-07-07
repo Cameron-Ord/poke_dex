@@ -50,8 +50,8 @@ onMounted(async ()=>{
 
 </script>
 <template>
-    <div @wheel.prevent="scroll_update($event)" :class="{ loaded: img_loaded }" class="transition_opacity transition_linear transition_25ms unloaded center_grid spacer generic_pad_8px rounded_border_5px" v-if="poke_info">
-        <h2 :class="{ loaded: img_loaded }" class="yellow rounded_border_5px text_padding transition_delay_50ms transition_opacity transition_linear transition_50ms unloaded"> {{ poke_info.name }}</h2>
-        <img :class="{ loaded: img_loaded }" @load="on_load()" class="transition_delay_25ms transition_opacity transition_linear transition_50ms unloaded width_100 width_max_256px" :src="poke_info.official_artwork_urls[current_artwork]" alt="" @click="change_sprite()">
+    <div @wheel.prevent="scroll_update($event)" " class="center_grid spacer generic_pad_8px rounded_border_5px" v-if="poke_info">
+        <h2 :class="{ loaded: img_loaded }" class="yellow rounded_border_5px text_padding"> {{ poke_info.name }}</h2>
+        <img :class="{ loaded: img_loaded }" @load="on_load()" class="unloaded transition_all transition_linear transition_25ms width_100 width_max_256px" :src="poke_info.official_artwork_urls[current_artwork]" alt="" @click="change_sprite()">
     </div>
 </template>

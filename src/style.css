@@ -101,6 +101,14 @@ div{
   transition-delay: 0.25s;
 }
 
+.transition_all {
+  transition-property: all;
+}
+
+.transition_filter{
+  transition-property: filter;
+}
+
 .transition_opacity {
   transition-property: opacity;
 }
@@ -123,10 +131,12 @@ div{
 
 .unloaded {
   opacity: 0;
+  filter:blur(3px)
 }
 
 .loaded {
   opacity: 1;
+  filter: none
 }
 
 .width_max_176px{
