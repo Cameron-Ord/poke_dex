@@ -20,8 +20,8 @@ export interface Pokemon_Ability {
 }
 
 export interface Pokemon_Artwork {
-    name: string,
-    url: string
+    normal: string
+    shiny: string
 }
 
 // Contains any information that can be acquired from the specified pokemon 
@@ -34,7 +34,7 @@ export interface Pokemon_Information_Generic {
     weight: number
     held_items: string[]
     move_names: string[]
-    official_artwork_urls: Pokemon_Artwork[]
+    official_artwork_urls: Pokemon_Artwork
     abilities: Pokemon_Ability[]
     stats: Pokemon_Stat[]
     type: Pokemon_Type[]

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import axios from 'axios';
 import type { Pokemon_Information_Generic, Pokemon_Cry, Pokemon_Type, Pokemon_Artwork, Pokemon_Ability, Pokemon_Stat } from "./types";
 import type { Destructured, Artwork_Urls, Cry_Urls, Held_Item_Object, Pokemon_Move_Object, Name_Pair, Ability_Object, Stat_Object, Type_Object } from "./api_types";
@@ -29,6 +29,7 @@ export const dex_requests = defineStore('dex_requests', ()=> {
     ])
 
     let pokemon_names: string[] = []
+    const pokemon_count = computed(()=>pokemon_names.length)
     let loading: Promise<void> | null = null
 
     async function pokemon_info_from_index(index: number): Promise<Pokemon_Information_Generic | undefined> {
@@ -125,11 +126,10 @@ export const dex_requests = defineStore('dex_requests', ()=> {
         return held_items
     }
 
-    function artwork_data_transform(artwork: Artwork_Urls): Pokemon_Artwork[] {
-        let tmp: Pokemon_Artwork[] = []
-        for(const [name, url] of Object.entries(artwork)){
-            tmp.push({name, url})
-        }
+    function artwork_data_transform(artwork: Artwork_Urls): Pokemon_Artwork {
+        let tmp: Pokemon_Artwork = {normal : "", shiny: ""}
+        tmp.normal = artwork.front_default
+        tmp.shiny = artwork.front_shiny
         return tmp
     }
 
@@ -248,6 +248,6 @@ export const dex_requests = defineStore('dex_requests', ()=> {
     }
 
     
-    return { keys, load_pokemon_names, pokemon_info_from_index, request_pages, fill_pokemon_names_list, get_page_count, retrieve_pokemon_info }
+    return { keys, pokemon_count, load_pokemon_names, pokemon_info_from_index, request_pages, fill_pokemon_names_list, get_page_count, retrieve_pokemon_info }
 
 })

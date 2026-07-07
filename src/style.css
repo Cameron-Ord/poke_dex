@@ -36,6 +36,39 @@
   --crust: #11111b;
 }
 
+.yellow{
+  color: var(--yellow);
+}
+
+.red {
+  color: var(--red)
+}
+
+.lavender{
+  color: var(--lavender);
+}
+
+.sky {
+  color: var(--sky);
+}
+
+.sapphire {
+  color: var(--sapphire)
+}
+
+.blue {
+  color: var(--blue);
+}
+
+.green {
+  color: var(--green);
+}
+
+
+.secondary_bg { 
+  background-color: var(--mantle);
+}
+
 body {
 margin: 0px;
 padding: 0px;
@@ -96,12 +129,12 @@ div{
   opacity: 1;
 }
 
-.img_width_max_176px{
+.width_max_176px{
   max-width: 176px;
   height: auto;
 }
 
-.img_width_max_256px{
+.width_max_256px{
   max-width: 256px;
   height: auto;
 }
@@ -129,7 +162,6 @@ div{
 .sky_border_2px {
   border: solid var(--sky) 2px;
 }
-
 
 .padding_row_4px {
   padding-top: 4px;
@@ -174,6 +206,13 @@ div{
   width: 100%;
 }
 
+.text_padding {
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
 .grid_flow_col {
   grid-auto-flow: column;
 }
@@ -200,26 +239,16 @@ div{
   text-align: center;
 }
 
-.container_bg {
-  background-color: var(--surface-1);
-}
-
-.sprite_box {
+.surface_dark {
   background-color: var(--surface-0);
 }
 
-.current_sprite_box {
+.surface_light {
   background-color: var(--surface-1);
 }
 
-.pokemon_name_badge {
-  color: var(--sky);
-  border-radius: 8px;
-  border: solid var(--sky) 1px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 1px;
-  padding-bottom: 1px;
+.surface_lightest {
+  background-color: var(--surface-2);
 }
 
 img {
