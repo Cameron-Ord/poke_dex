@@ -15,6 +15,8 @@ import PokemonAbilities from './components/PokemonAbilities.vue';
 const state = dex_state()
 const reqs = dex_requests()
 
+let timeout_id: number | undefined = undefined
+let next = state.get_index.value
 const poke_info = ref<Pokemon_Information_Generic | undefined>(undefined)
 
 watch(()=>state.get_index.value, async ()=>{
@@ -28,7 +30,13 @@ onMounted(async ()=>{
 
 async function scroll_update(ev: WheelEvent) {
     const direction: number = ev.deltaY > 0 ? 1 : -1
-    state.dex_increment(direction, reqs.pokemon_count)
+    const delay: number = 325
+
+    clearTimeout(timeout_id)
+    next = state.dex_increment_const(next, direction, reqs.pokemon_count)
+    timeout_id = setTimeout(()=>{
+        state.set_index(next, reqs.pokemon_count, 0)
+    }, delay)
 }
 
 
