@@ -28,8 +28,51 @@ export const dex_requests = defineStore('dex_requests', ()=> {
         [ keys.pokemon_key, new Map<string, string>() ],
     ])
 
+    let pokemon_names: string[] = []
+    let loading: Promise<void> | null = null
+
+    async function pokemon_info_from_index(index: number): Promise<Pokemon_Information_Generic | undefined> {
+        const pokemon_name: string | undefined = pokemon_names.at(index)
+        if(!pokemon_name){
+            return undefined
+        }
+
+        return retrieve_pokemon_info(pokemon_name)
+    }
+
+    async function load_pokemon_names() {
+        if(pokemon_names.length > 0){
+            return
+        }
+
+        if(!loading){
+            loading = fill_pokemon_names_list(await get_page_count(keys.pokemon_key))
+        }
+
+        await loading
+    }
+
     // Pokemon name, Info
     const pokemon_info_generic = ref(new Map<string, Pokemon_Information_Generic>())
+
+    async function fill_pokemon_names_list(count: number) {
+        const endpoint: string | undefined = api_endpoints.get(keys.pokemon_key)
+        if(!endpoint){
+            console.error("bad key")
+            return
+        }
+
+        const data: Destructured | null = await page_request(endpoint, count, 0)
+        if(!data){
+            return
+        } 
+
+        pokemon_names = []
+        const results: Name_Pair[] = data['results']
+        for(let i = 0; i < results.length; i++){
+            pokemon_names.push(results[i].name)
+        }
+    }
 
     async function retrieve_pokemon_info(pokemon_name: string): Promise<Pokemon_Information_Generic | undefined> {
         if(pokemon_info_generic.value.has(pokemon_name)){
@@ -205,6 +248,6 @@ export const dex_requests = defineStore('dex_requests', ()=> {
     }
 
     
-    return { keys, request_pages, get_page_count, retrieve_pokemon_info }
+    return { keys, load_pokemon_names, pokemon_info_from_index, request_pages, fill_pokemon_names_list, get_page_count, retrieve_pokemon_info }
 
 })
